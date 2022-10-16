@@ -52,7 +52,8 @@
 
                                         <td><a href="{{route('Book.Details' , $Book->id)}}"><button class="btn btn-warning btn-s">View Details</button></a></td>
                                         <td><a href="{{route('Book.edit'  , $Book->id)}}"><button class="btn btn-info btn-s"><span class="glyphicon glyphicon-pencil"></span></button></a></td>
-                                        <td><a href="{{route('Book.destroy' , $Book->id)}}"><button class="btn btn-danger btn-s" onClick="return confirm('Do you really want to delete');"><span class="glyphicon glyphicon-trash"></span></button></a></td>
+                                        <td><form action="{{route('Book.destroy' , $Book->id)}}" method="POST"> @csrf @method('DELETE') <button class="btn btn-danger btn-s" type="submit" onClick="return confirm('Do you really want to delete');"><span class="glyphicon glyphicon-trash"></span></button></form></td>
+
                                     </tr>
 
 

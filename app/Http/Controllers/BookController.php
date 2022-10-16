@@ -114,7 +114,7 @@ class BookController extends Controller
         ]);
 
         
-       
+       if($request->file('image')){
         $file = $request->file('image');
         $filename = date('YmdHi') . $file->getClientOriginalName();
         $file-> move(public_path('public/Image'), $filename);
@@ -122,6 +122,13 @@ class BookController extends Controller
         Books::where('id', $id)->update(['book_title' => request('Title'), 'book_author' => request('author'), 'book_description' => request('description') , 'book_image' => $filename]);
 
         return redirect('/')->with('mssg', 'Book record updated successfully');
+    }else {
+        
+        Books::where('id', $id)->update(['book_title' => request('Title'), 'book_author' => request('author'), 'book_description' => request('description')]);
+
+        return redirect('/')->with('mssg', 'Book record updated successfully');
+
+    }
     }
 
     /**

@@ -22,7 +22,7 @@ Route::get('/books', [BookController::class, 'index'])->name('homePage');
 
 //update book
 Route::get('/books/{id}/edit', [BookController::class, 'edit'])->name('Book.edit');
-Route::post('/books/{id}/update', [BookController::class, 'update'])->name('Bookupdate');
+Route::put('/books/{id}/update', [BookController::class, 'update'])->name('Bookupdate');
 
 
 //add new book form and save
@@ -35,4 +35,4 @@ Route::post('/books/addBook', [BookController::class, 'store'])->name('saveBook'
 Route::get('/books/{id}', [BookController::class, 'show'])->name('Book.Details');
 
 //Delete Book record
-Route::get('/books/{id}/delete', [BookController::class, 'destroy'])->name('Book.destroy');
+Route::delete('/books/{id}/delete', [BookController::class, 'destroy'])->name('Book.destroy');

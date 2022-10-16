@@ -12,6 +12,7 @@
 <form class="container-lg" name="createForm" action="{{route('Bookupdate' , $Book->id)}}" method="POST" enctype="multipart/form-data">
       
     @csrf
+    @method('PUT')
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -37,7 +38,7 @@
     </div>
 
     <div class="form-floating m-3">
-        <input type="file" class="form-control h-25" name="image" id="image" placeholder="image" required>
+        <input type="file" class="form-control h-25" name="image" id="image" placeholder="image">
         <label for="image">Book image</label>
         <input class="btn btn-primary mt-4" name="insert" type="submit" value="Update">
 
