@@ -138,9 +138,11 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        $Book = Books::find($id);
-        $Book->delete();
-        return redirect()->route('homePage')->withSuccess(__('Post delete successfully.'));
+
+        Books::where('id', $id)->delete();
+
+
+        return redirect('/')->with('mssg', 'Book Moved to Trash successfully');
     }
 
     public function sort()
@@ -151,17 +153,44 @@ class BookController extends Controller
 
             $Books = Books::orderBy('created_at', 'DESC')
                 ->get();
-            // dd($Books);
             return view('welcome',  ['Books' => $Books]);
         } elseif ($sortCondition == 'oldest') {
 
             $Books = Books::orderBy('created_at', 'ASC')
                 ->get();
-            // dd($Books);
             return view('welcome',  ['Books' => $Books]);
         } else {
             $Books = Books::all();
             return view('welcome',  ['Books' => $Books]);
         }
+    }
+
+
+    public function trash()
+    {
+
+        $onlySoftDeleted = Books::onlyTrashed()->get();
+
+        return view('trash', ['Books' => $onlySoftDeleted]);
+    }
+
+    public function Forcedelete($id)
+    {
+
+         //$Books= Books::withTrashed()->where('id',$id)->get();
+        // what you are trying to return is a multiple row data, hence it will return a single data but in multi-dimensional array format. You can check that using dd() helper function. In second case, you are using first() method, it always returns single row of data related to that particular $id, so forceDelete() method exists for that case(In other sense you can say that forceDelete exists only the single row data model, but not multiple data row model which you are tying to retrieve using get(). Remember get() always tries to return multiple data, and multiple data can only be held on array, so it gives array as a result although the result is only one.)
+
+
+        $Book = Books::withTrashed()->find($id);
+        $Book->forceDelete();
+        return redirect('/')->with('mssg', 'Book Removed from the database successfully');
+    }
+
+    public function restore($id)
+    {
+
+        Books::withTrashed()->find($id)->restore();
+
+        return redirect('/')->with('mssg', 'Book Restored successfully');
     }
 }

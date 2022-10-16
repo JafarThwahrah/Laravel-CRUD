@@ -71,7 +71,6 @@
 
                                     </tr>
 
-
                                     @endforeach
 
 
@@ -79,6 +78,8 @@
 
                                 </tbody>
                             </table>
+                            <a href="{{route('trash')}}">Books Archive</a>
+
                         </div>
                     </div>
                 </div>

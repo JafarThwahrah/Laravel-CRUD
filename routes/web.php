@@ -40,3 +40,12 @@ Route::delete('/books/{id}/delete', [BookController::class, 'destroy'])->name('B
 //sort books
 Route::post('/books/sort', [BookController::class, 'sort'])->name('sortbooks');
 
+//trash page 
+Route::get('/books/del/trash', [BookController::class, 'trash'])->name('trash');
+
+//force delete  
+Route::delete('/books/del/trash/Forcedelete/{id}', [BookController::class, 'Forcedelete'])->name('Forcedelete');
+
+//restore softdeleted items
+Route::get('/books/del/trash/restore/{id}', [BookController::class, 'restore'])->name('restore');
+

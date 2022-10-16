@@ -20,6 +20,8 @@ return new class extends Migration
             $table->longText('book_description');
             $table->string('book_image');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
