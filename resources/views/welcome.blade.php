@@ -18,7 +18,10 @@
                     <div class="col-md-12">
                         <h1>Books record</h1>
                         <hr />
+                        <div class="container2 d-flex justify-content-between">
                         <a href="{{ route('addBook') }}"><button class="btn btn-primary btn-s">Add new Book</button></a>
+                            <input class="form-control w-25" id="searchElement" type="search" placeholder="Search" aria-label="Search">
+                        </div>
                         <hr />
 
                      @if(session('mssg'))
@@ -45,7 +48,7 @@
 
 
                                     <!-- Display Records -->
-                                    <tr>
+                                    <tr class="row-record">
                                         <td>{{$Book->id}}</td>
                                         <td>{{$Book->book_title}} </td>
                                         <td>{{$Book->book_author}}</td>
@@ -84,4 +87,36 @@
         </div>
     </div>
 </div>
+<script>
+    // const arr = ['jafar' , 'ahmad' , 'mahmoud'];
+    // arr.forEach(element => console.log(element));
+
+
+    const searchElement = document.querySelector('#searchElement');
+    searchElement.addEventListener('input', function(event) {
+
+        const searched = event.target.value.toLowerCase();
+
+        const rowRecords = [] = document.getElementsByClassName("row-record");
+
+        for (let i = 0; i < rowRecords.length; i++){
+            console.log((rowRecords[i].cells[2].firstChild.data));
+            const visible =
+            rowRecords[i].cells[2].firstChild.data.toLowerCase().includes(searched) ||
+            rowRecords[i].cells[1].firstChild.data.toLowerCase().includes(searched);
+
+            if (visible != true) {
+                rowRecords[i].style.display = "none";
+         } else {
+            rowRecords[i].style.display = "table-row";
+      }
+
+        }
+
+    
+
+    });
+
+
+</script>
 @endsection
