@@ -36,3 +36,7 @@ Route::get('/books/{id}', [BookController::class, 'show'])->name('Book.Details')
 
 //Delete Book record
 Route::delete('/books/{id}/delete', [BookController::class, 'destroy'])->name('Book.destroy');
+
+//sort books
+Route::post('/books/sort', [BookController::class, 'sort'])->name('sortbooks');
+

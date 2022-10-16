@@ -57,7 +57,7 @@ class BookController extends Controller
 
         $file = $request->file('image');
         $filename = date('YmdHi') . $file->getClientOriginalName();
-        $file-> move(public_path('public/Image'), $filename);
+        $file->move(public_path('public/Image'), $filename);
 
 
         $Book->book_image = $filename;
@@ -113,22 +113,21 @@ class BookController extends Controller
             'book_description' => ''
         ]);
 
-        
-       if($request->file('image')){
-        $file = $request->file('image');
-        $filename = date('YmdHi') . $file->getClientOriginalName();
-        $file-> move(public_path('public/Image'), $filename);
 
-        Books::where('id', $id)->update(['book_title' => request('Title'), 'book_author' => request('author'), 'book_description' => request('description') , 'book_image' => $filename]);
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('public/Image'), $filename);
 
-        return redirect('/')->with('mssg', 'Book record updated successfully');
-    }else {
-        
-        Books::where('id', $id)->update(['book_title' => request('Title'), 'book_author' => request('author'), 'book_description' => request('description')]);
+            Books::where('id', $id)->update(['book_title' => request('Title'), 'book_author' => request('author'), 'book_description' => request('description'), 'book_image' => $filename]);
 
-        return redirect('/')->with('mssg', 'Book record updated successfully');
+            return redirect('/')->with('mssg', 'Book record updated successfully');
+        } else {
 
-    }
+            Books::where('id', $id)->update(['book_title' => request('Title'), 'book_author' => request('author'), 'book_description' => request('description')]);
+
+            return redirect('/')->with('mssg', 'Book record updated successfully');
+        }
     }
 
     /**
@@ -142,5 +141,27 @@ class BookController extends Controller
         $Book = Books::find($id);
         $Book->delete();
         return redirect()->route('homePage')->withSuccess(__('Post delete successfully.'));
+    }
+
+    public function sort()
+    {
+
+        $sortCondition = request('sortSelect');
+        if ($sortCondition == "newest") {
+
+            $Books = Books::orderBy('created_at', 'DESC')
+                ->get();
+            // dd($Books);
+            return view('welcome',  ['Books' => $Books]);
+        } elseif ($sortCondition == 'oldest') {
+
+            $Books = Books::orderBy('created_at', 'ASC')
+                ->get();
+            // dd($Books);
+            return view('welcome',  ['Books' => $Books]);
+        } else {
+            $Books = Books::all();
+            return view('welcome',  ['Books' => $Books]);
+        }
     }
 }

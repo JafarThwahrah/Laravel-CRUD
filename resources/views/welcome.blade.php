@@ -22,6 +22,19 @@
                         <a href="{{ route('addBook') }}"><button class="btn btn-primary btn-s">Add new Book</button></a>
                             <input class="form-control w-25" id="searchElement" type="search" placeholder="Search" aria-label="Search">
                         </div>
+
+                        <form action="{{ route('sortbooks') }}" method="POST" class="d-flex flex-column align-items-end">
+                            @csrf
+                            <select class="form-select w-25 mt-5" name="sortSelect" aria-label="Default select example">
+                                <option
+                                class="dropdown-header" value="Sort..." disabled selected hidden>Sort...</option>
+                                <option value="newest">newest</option>
+                                <option value="oldest">oldest</option>
+                              </select>
+                              <button class="w-25 mt-4">Sort</button>
+
+                        </form>
+
                         <hr />
 
                      @if(session('mssg'))
@@ -34,7 +47,6 @@
                                     <th>ID</th>
                                     <th>Book Title</th>
                                     <th>Author</th>
-
                                     <th>view</th>
                                     <th>Update</th>
                                     <th>Delete</th>
@@ -73,24 +85,11 @@
 
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
         </div>
     </div>
 </div>
 <script>
-    // const arr = ['jafar' , 'ahmad' , 'mahmoud'];
-    // arr.forEach(element => console.log(element));
-
+  
 
     const searchElement = document.querySelector('#searchElement');
     searchElement.addEventListener('input', function(event) {
