@@ -9,7 +9,7 @@
         
 <h1>Update Book Information</h1>
 <hr>
-<form class="container-lg" name="createForm" action="{{route('Bookupdate' , $Book->id)}}" method="POST">
+<form class="container-lg" name="createForm" action="{{route('Bookupdate' , $Book->id)}}" method="POST" enctype="multipart/form-data">
       
     @csrf
         @if ($errors->any())
@@ -34,8 +34,15 @@
     <div class="form-floating m-3">
         <input type="text" class="form-control h-25" name="description" id="description" value="{{$Book->book_description}}" placeholder="description" required>
         <label for="description">Book Description</label>
-        <input class="btn btn-primary mt-4" name="insert" type="submit" value="Update">
     </div>
+
+    <div class="form-floating m-3">
+        <input type="file" class="form-control h-25" name="image" id="image" placeholder="image" required>
+        <label for="image">Book image</label>
+        <input class="btn btn-primary mt-4" name="insert" type="submit" value="Update">
+
+    </div>
+
 
 </form>
 

@@ -54,6 +54,17 @@ class BookController extends Controller
         $Book->book_author = request('author');
         $Book->book_description = request('Description');
 
+
+        $file = $request->file('image');
+        $filename = date('YmdHi') . $file->getClientOriginalName();
+        $file-> move(public_path('public/Image'), $filename);
+
+
+        $Book->book_image = $filename;
+
+
+
+
         $Book->save();
 
         return redirect('/')->with('mssg', 'Book added successfully');
@@ -102,8 +113,13 @@ class BookController extends Controller
             'book_description' => ''
         ]);
 
-        // dd($id);
-        Books::where('id', $id)->update(['book_title' => request('Title'), 'book_author' => request('author'), 'book_description' => request('description')]);
+        
+       
+        $file = $request->file('image');
+        $filename = date('YmdHi') . $file->getClientOriginalName();
+        $file-> move(public_path('public/Image'), $filename);
+
+        Books::where('id', $id)->update(['book_title' => request('Title'), 'book_author' => request('author'), 'book_description' => request('description') , 'book_image' => $filename]);
 
         return redirect('/')->with('mssg', 'Book record updated successfully');
     }

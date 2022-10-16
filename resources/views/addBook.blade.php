@@ -11,7 +11,7 @@
     <h3 class="text-center">Add new Book</h3>
 
 
-    <form class="container-lg" name="createForm" action="/books/addBook" method="POST">
+    <form class="container-lg" name="createForm" action="/books/addBook" method="POST" enctype="multipart/form-data">
         @csrf
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -34,6 +34,11 @@
         <div class="form-floating m-3">
             <input type="text" class="form-control h-25" name="Description" id="Description" placeholder="Description" required>
             <label for="Description">Book Description</label>
+        </div>
+
+        <div class="form-floating m-3">
+            <input type="file" class="form-control h-25" name="image" id="image" placeholder="image" required>
+            <label for="image">Book image</label>
             <input class="btn btn-primary mt-4" name="insert" type="submit" value="Submit">
         </div>
 

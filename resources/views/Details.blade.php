@@ -10,7 +10,8 @@
 
     <h1>Book ID-{{$id}}</h1>
     @foreach($Book as $bookinfo)
-    <h3>Book Title: {{$bookinfo->book_title}}</h3>
+    <img src="{{ url('public/Image/'.$bookinfo->book_image) }}" alt="book image" style="height:200 px; width: 150px;">  
+      <h3>Book Title: {{$bookinfo->book_title}}</h3>
     <p>{{$bookinfo->book_description}}</p>
     @endforeach
 
