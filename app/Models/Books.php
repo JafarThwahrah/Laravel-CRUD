@@ -9,4 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Books extends Model
 {
     use HasFactory , SoftDeletes;
+
+
+    public function author()
+    {
+        return $this->belongsTo(Authors::class);
+    }
 }
+
+

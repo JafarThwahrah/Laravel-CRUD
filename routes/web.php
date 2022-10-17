@@ -34,6 +34,11 @@ Route::post('/books/addBook', [BookController::class, 'store'])->name('saveBook'
 //View Book details
 Route::get('/books/{id}', [BookController::class, 'show'])->name('Book.Details');
 
+
+//Author information
+Route::get('/books/del/authorinfo/{name}', [BookController::class, 'author_details'])->name('authorinfo');
+
+
 //Delete Book record
 Route::delete('/books/{id}/delete', [BookController::class, 'destroy'])->name('Book.destroy');
 

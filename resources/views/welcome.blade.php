@@ -63,7 +63,7 @@
                                     <tr class="row-record">
                                         <td>{{$Book->id}}</td>
                                         <td>{{$Book->book_title}} </td>
-                                        <td>{{$Book->book_author}}</td>
+                                        <td><a href="{{route('authorinfo' , $Book->book_author)}}">{{$Book->book_author}}</a></td>
 
                                         <td><a href="{{route('Book.Details' , $Book->id)}}"><button class="btn btn-warning btn-s">View Details</button></a></td>
                                         <td><a href="{{route('Book.edit'  , $Book->id)}}"><button class="btn btn-info btn-s"><span class="glyphicon glyphicon-pencil"></span></button></a></td>

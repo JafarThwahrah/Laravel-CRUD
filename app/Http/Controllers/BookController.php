@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Validation\ValidationExceptionuse;
-use Illuminate\Http\Request;
 use App\Models\Books;
+use App\Models\authors;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationExceptionuse;
 
 class BookController extends Controller
 {
@@ -192,5 +193,11 @@ class BookController extends Controller
         Books::withTrashed()->find($id)->restore();
 
         return redirect('/')->with('mssg', 'Book Restored successfully');
+    }
+
+    public function author_details($name){
+        $Books = Books::where('book_author', $name)->get();
+        $author = authors::where('name', $name)->get();
+        return view('authorinfo' ,['books' => $Books , 'author' => $author]);
     }
 }
