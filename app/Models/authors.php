@@ -11,7 +11,7 @@ class authors extends Model
 
 
 
-    public function Books()
+    public function author_books()
     {
         return $this->hasMany(Books::class);
     }

@@ -48,12 +48,16 @@ class BookController extends Controller
             'book_author' => '',
             'book_description' => ''
         ]);
+        $author = new authors();
+        $author->save();
 
         $Book = new Books();
-
+       
         $Book->book_title = request('Title');
         $Book->book_author = request('author');
         $Book->book_description = request('Description');
+        $Book->authors_id = $author->id;
+
 
 
         $file = $request->file('image');
@@ -196,8 +200,10 @@ class BookController extends Controller
     }
 
     public function author_details($name){
-        $Books = Books::where('book_author', $name)->get();
-        $author = authors::where('name', $name)->get();
-        return view('authorinfo' ,['books' => $Books , 'author' => $author]);
+        // $Books = Books::where('book_author', $name)->with('author_books')->get();
+        // $author = authors::where('name', $name)->get();
+        $Books = authors::with('author_books')->where('name' , $name)->get();
+        // dd($Books);
+        return view('authorinfo' ,['books' => $Books]);
     }
 }

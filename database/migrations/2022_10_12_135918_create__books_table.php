@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('book_author');
             $table->longText('book_description');
             $table->string('book_image');
+            $table->integer('authors_id');
             $table->timestamps();
             $table->softDeletes();
+            
 
         });
     }
