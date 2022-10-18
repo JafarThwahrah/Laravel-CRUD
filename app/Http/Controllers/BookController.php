@@ -49,6 +49,7 @@ class BookController extends Controller
             'book_description' => ''
         ]);
         $author = new authors();
+        $author->name = request('author');
         $author->save();
 
         $Book = new Books();
