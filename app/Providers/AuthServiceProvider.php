@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role === "admin";
         });
 
-        Gate::define('update-book', [BooksPolicy::class, 'update']);
+        // Gate::define('update-book', [BooksPolicy::class, 'update']);
 
 
         Gate::define('Editor', function (User $user) {
