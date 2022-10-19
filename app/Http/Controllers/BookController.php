@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Books;
 use App\Models\authors;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationExceptionuse;
 
 class BookController extends Controller
@@ -53,7 +54,7 @@ class BookController extends Controller
         $author->save();
 
         $Book = new Books();
-       
+
         $Book->book_title = request('Title');
         $Book->book_author = request('author');
         $Book->book_description = request('Description');
@@ -112,6 +113,7 @@ class BookController extends Controller
     public function update(Request $request, $id)
     {
 
+        if(Gate::allows('Editor') || Gate::allows('admin')){
 
         $request->validate([
             'book_title' => 'unique:books|max:255',
@@ -134,6 +136,9 @@ class BookController extends Controller
 
             return redirect('/')->with('mssg', 'Book record updated successfully');
         }
+    }else {
+        abort(403);
+    }
     }
 
     /**
@@ -144,11 +149,14 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-
+    
+      if(Gate::allows(Gate::allows('admin'))){
         Books::where('id', $id)->delete();
 
-
         return redirect('/')->with('mssg', 'Book Moved to Trash successfully');
+    }else {
+        abort(403);
+    }
     }
 
     public function sort()
@@ -183,7 +191,7 @@ class BookController extends Controller
     public function Forcedelete($id)
     {
 
-         //$Books= Books::withTrashed()->where('id',$id)->get();
+        //$Books= Books::withTrashed()->where('id',$id)->get();
         // what you are trying to return is a multiple row data, hence it will return a single data but in multi-dimensional array format. You can check that using dd() helper function. In second case, you are using first() method, it always returns single row of data related to that particular $id, so forceDelete() method exists for that case(In other sense you can say that forceDelete exists only the single row data model, but not multiple data row model which you are tying to retrieve using get(). Remember get() always tries to return multiple data, and multiple data can only be held on array, so it gives array as a result although the result is only one.)
 
 
@@ -200,11 +208,12 @@ class BookController extends Controller
         return redirect('/')->with('mssg', 'Book Restored successfully');
     }
 
-    public function author_details($name){
+    public function author_details($name)
+    {
         // $Books = Books::where('book_author', $name)->with('author_books')->get();
         // $author = authors::where('name', $name)->get();
-        $Books = authors::with('author_books')->where('name' , $name)->get();
+        $Books = authors::with('author_books')->where('name', $name)->get();
         // dd($Books);
-        return view('authorinfo' ,['books' => $Books]);
+        return view('authorinfo', ['books' => $Books]);
     }
 }

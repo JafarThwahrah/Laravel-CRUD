@@ -48,7 +48,7 @@ Route::delete('/books/{id}/delete', [BookController::class, 'destroy'])->name('B
 Route::post('/books/sort', [BookController::class, 'sort'])->name('sortbooks');
 
 //trash page 
-Route::get('/books/del/trash', [BookController::class, 'trash'])->name('trash');
+Route::get('/books/del/trash', [BookController::class, 'trash'])->name('trash')->middleware('can:admin');
 
 //force delete  
 Route::delete('/books/del/trash/Forcedelete/{id}', [BookController::class, 'Forcedelete'])->name('Forcedelete');
@@ -66,6 +66,8 @@ Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name(
 Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
+Route::get('foreditor', [CustomAuthController::class, 'foreditor'])->name('foreditor');
+
 
 Route::get('user', [CustomAuthController::class, 'userpage'])->name('user'); 
 

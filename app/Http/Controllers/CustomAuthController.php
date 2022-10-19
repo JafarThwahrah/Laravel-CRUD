@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; //new
-use Illuminate\Support\Facades\Session; //new
 use App\Models\User;
+use App\Models\Books;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash; //new
+use Illuminate\Support\Facades\Session; //new
 
 
 class CustomAuthController extends Controller
@@ -93,4 +94,8 @@ class CustomAuthController extends Controller
 
         return Redirect('login');
     }
+
+  
+
+
 }
