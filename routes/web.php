@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CustomAuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -53,4 +55,19 @@ Route::delete('/books/del/trash/Forcedelete/{id}', [BookController::class, 'Forc
 
 //restore softdeleted items
 Route::get('/books/del/trash/restore/{id}', [BookController::class, 'restore'])->name('restore');
+
+
+
+
+
+Route::get('dashboard', [CustomAuthController::class, 'dashboard'])->middleware('can:admin');
+Route::get('login', [CustomAuthController::class, 'index'])->name('login');
+Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
+Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
+Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
+Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
+
+Route::get('user', [CustomAuthController::class, 'userpage'])->name('user'); 
+
+
 
