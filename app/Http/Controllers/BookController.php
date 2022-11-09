@@ -150,7 +150,7 @@ class BookController extends Controller
     public function destroy($id)
     {
     
-      if(Gate::allows(Gate::allows('admin'))){
+      if((Gate::allows('admin'))){
         Books::where('id', $id)->delete();
 
         return redirect('/')->with('mssg', 'Book Moved to Trash successfully');
